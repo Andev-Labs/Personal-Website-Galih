@@ -74,11 +74,7 @@ export const profileInput = {
         "Drafted study protocols for Quality Control Circle (QCC) projects focused on process optimization and lab efficiency.",
         "Supported the Supervisor in Out-of-Specification (OOS) investigations and the resulting Corrective and Preventive Actions (CAPA).",
       ],
-      caseSlugs: [
-        "oos-investigation-capa",
-        "method-transfer-validation",
-        "qcc-genba-improvement",
-      ],
+      caseSlugs: ["oos-investigation-capa", "method-transfer-validation", "qcc-genba-improvement"],
     },
     {
       id: "kalbe",

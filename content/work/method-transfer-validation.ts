@@ -69,9 +69,7 @@ export const methodTransferValidation = {
     "Fewer surprises in routine testing, because the weak points of each method were found during validation, not during release.",
     "Hands-on depth across three instrument families and the data review behind them.",
   ],
-  metrics: [
-    { label: "Methods transferred or validated", value: null },
-  ],
+  metrics: [{ label: "Methods transferred or validated", value: null }],
   skills: [
     "Method validation (ICH Q2)",
     "HPLC",

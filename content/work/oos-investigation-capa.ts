@@ -60,8 +60,7 @@ export const oosInvestigationCapa = {
     {
       label: "Verify",
       title: "Check effectiveness",
-      detail:
-        "Follow up on each action and confirm it actually worked before the CAPA is closed.",
+      detail: "Follow up on each action and confirm it actually worked before the CAPA is closed.",
     },
   ],
   outcome: [

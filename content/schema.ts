@@ -37,9 +37,7 @@ export const profileSchema = z.object({
     headline: nonEmpty,
     statement: nonEmpty,
   }),
-  snapshot: z
-    .array(z.object({ label: nonEmpty, value: nonEmpty }))
-    .min(3),
+  snapshot: z.array(z.object({ label: nonEmpty, value: nonEmpty })).min(3),
   about: z.array(nonEmpty).min(1),
   experience: z
     .array(
