@@ -20,10 +20,7 @@ export const incomingMaterialGatekeeping = {
     standards: ["Material acceptance criteria", "ISO 9001"],
   },
   tags: ["Incoming QC", "MDR", "Disposition", "Documentation"],
-  cover: {
-    src: "/images/workbench.jpg",
-    alt: "A laboratory workbench with a microscope and analytical instruments",
-  },
+  coverLabel: "FIG. INCOMING INSPECTION",
   context: [
     "On a production line, one non-conforming part can stop a shift. Incoming QC is the last point where it is still cheap to say no.",
     "The challenge is speed with discipline: materials arrive daily, production wants them now, and every decision has to be documented well enough to recover costs from a supplier and to spot patterns over time.",

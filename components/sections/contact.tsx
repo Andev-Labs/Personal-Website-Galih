@@ -1,60 +1,65 @@
-import { ArrowUpRight, Download } from "lucide-react"
+import { ArrowUpRight, Download, MapPin } from "lucide-react"
 
-import { ChromatogramLine } from "@/components/site/chromatogram-line"
 import { Container } from "@/components/site/container"
-import { SectionLabel } from "@/components/site/section-label"
+import { Eyebrow } from "@/components/site/eyebrow"
+import { GradientPanel } from "@/components/site/gradient-panel"
 import { profile } from "@/content"
 
 import { CopyEmailButton } from "./copy-email-button"
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="py-20 sm:py-28">
+    <section id="contact" aria-labelledby="contact-heading" className="py-16 sm:py-24">
       <Container>
-        <div className="reveal rounded-sm bg-surface px-6 py-14 sm:px-12 sm:py-20">
-          <SectionLabel index="07">Contact</SectionLabel>
-          <h2 id="contact-heading" className="mt-8 font-serif text-display text-balance">
-            {profile.contact.headline}
-          </h2>
-          <p className="mt-8 max-w-xl text-lg text-pretty text-muted-foreground">
-            {profile.contact.body}
-          </p>
-
-          <ChromatogramLine className="my-12" height={40} />
-
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="font-mono text-micro text-muted-foreground uppercase">Email</p>
-              <a
-                href={`mailto:${profile.email}`}
-                className="mt-2 block font-serif text-3xl break-all decoration-line decoration-1 underline-offset-[0.15em] hover:underline sm:text-5xl"
-              >
-                {profile.email}
-              </a>
-            </div>
-            <div className="flex flex-wrap gap-3">
+        <GradientPanel className="grid gap-8 p-3 sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-14">
+          <div className="order-2 rounded-[1.75rem] bg-card p-6 text-card-foreground shadow-float sm:p-8 lg:order-1">
+            <p className="text-sm font-medium text-muted-foreground">Email</p>
+            <a
+              href={`mailto:${profile.email}`}
+              className="mt-1 block text-xl font-bold tracking-tight break-all hover:underline sm:text-2xl"
+            >
+              {profile.email}
+            </a>
+            <div className="mt-5">
               <CopyEmailButton email={profile.email} />
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="me noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-line px-5 font-mono text-label uppercase transition-colors hover:bg-background"
-              >
-                LinkedIn
-                <ArrowUpRight aria-hidden="true" className="size-4" />
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-              <a
-                href={profile.cvPath}
-                download
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-5 font-mono text-label text-primary-foreground uppercase transition-opacity hover:opacity-90"
-              >
-                <Download aria-hidden="true" className="size-4" />
-                Download CV
-              </a>
             </div>
+            <ul className="mt-8 divide-y divide-line-soft border-t border-line-soft">
+              <li>
+                <a
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="me noreferrer"
+                  className="flex items-center justify-between py-4 font-medium hover:text-link"
+                >
+                  LinkedIn
+                  <ArrowUpRight aria-hidden="true" className="size-5" />
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={profile.cvPath}
+                  download
+                  className="flex items-center justify-between py-4 font-medium hover:text-link"
+                >
+                  Download CV (PDF)
+                  <Download aria-hidden="true" className="size-5" />
+                </a>
+              </li>
+            </ul>
           </div>
-        </div>
+          <div className="order-1 px-3 pt-6 text-espresso sm:px-0 sm:pt-0 lg:order-2 dark:text-bone">
+            <Eyebrow className="text-espresso/80 dark:text-bone/80">Contact</Eyebrow>
+            <h2 id="contact-heading" className="mt-4 text-headline font-bold text-balance">
+              {profile.contact.headline}
+            </h2>
+            <p className="mt-5 max-w-md text-lg text-pretty">{profile.contact.body}</p>
+            <p className="mt-6 inline-flex items-center gap-2 font-medium">
+              <MapPin aria-hidden="true" className="size-5" />
+              {profile.location}
+            </p>
+          </div>
+        </GradientPanel>
       </Container>
     </section>
   )

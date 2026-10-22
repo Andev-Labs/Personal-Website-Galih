@@ -20,10 +20,7 @@ export const qccGenbaImprovement = {
     standards: ["GMP (CPOB)", "ISO 9001"],
   },
   tags: ["QCC", "Genba", "PDCA", "Lab efficiency"],
-  cover: {
-    src: "/images/labcoat.jpg",
-    alt: "An analyst in a lab coat working at a laptop beside laboratory glassware",
-  },
+  coverLabel: "FIG. QCC · GENBA",
   context: [
     "Quality problems often hide in routine: a step that takes longer than it should, a form that gets filled in differently by every shift, a recurring defect everyone has learned to live with.",
     "Quality Control Circles (QCC) give a small team a structured way to tackle one such problem. Genba — going to the actual place where work happens — makes sure the problem is seen first-hand, not described from memory.",

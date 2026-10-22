@@ -1,11 +1,11 @@
-import { BeyondTheLab } from "@/components/sections/beyond-the-lab"
+import { Activities } from "@/components/sections/activities"
+import { Certifications } from "@/components/sections/certifications"
 import { Contact } from "@/components/sections/contact"
 import { Education } from "@/components/sections/education"
 import { Experience } from "@/components/sections/experience"
-import { Expertise } from "@/components/sections/expertise"
 import { Hero } from "@/components/sections/hero"
-import { SelectedWork } from "@/components/sections/selected-work"
-import { Snapshot } from "@/components/sections/snapshot"
+import { Skills } from "@/components/sections/skills"
+import { Summary } from "@/components/sections/summary"
 import { personJsonLd } from "@/lib/json-ld"
 
 export default function HomePage() {
@@ -13,12 +13,12 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: personJsonLd() }} />
       <Hero />
-      <Snapshot />
-      <SelectedWork />
+      <Summary />
+      <Skills />
       <Experience />
-      <Expertise />
       <Education />
-      <BeyondTheLab />
+      <Certifications />
+      <Activities />
       <Contact />
     </>
   )

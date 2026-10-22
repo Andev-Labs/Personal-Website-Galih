@@ -20,10 +20,7 @@ export const ppwrPackagingCompliance = {
     standards: ["EU PPWR — Regulation (EU) 2025/40", "ISO 9001"],
   },
   tags: ["Regulatory", "Packaging", "Supplier evidence", "Gap analysis"],
-  cover: {
-    src: "/images/bottles.jpg",
-    alt: "Sample vials beside an automated laboratory dispenser",
-  },
+  coverLabel: "FIG. EU PPWR READINESS",
   context: [
     "The EU Packaging and Packaging Waste Regulation (PPWR) replaces a directive with one regulation that applies directly in every EU member state. It tightens rules on substances in packaging, recyclability, labelling and the documentation a manufacturer must be able to show.",
     "For a manufacturer shipping into the EU, that means every packaging component — not just the product — needs a traceable story: what it is made of, who supplied it, and the evidence that it complies.",
