@@ -1,5 +1,5 @@
 /** Production origin on Netlify, used whenever NEXT_PUBLIC_SITE_URL is not set. */
-const PRODUCTION_URL = "https://galih-mestikasari.netlify.app"
+const PRODUCTION_URL = "https://khrisanty.netlify.app"
 
 function resolveSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL

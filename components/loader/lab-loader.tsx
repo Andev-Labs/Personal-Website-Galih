@@ -89,9 +89,9 @@ export function LabLoader() {
           className="pointer-events-none absolute inset-0 size-full"
         />
 
-        <div className="relative flex items-center justify-between px-5 pt-5 sm:px-10 sm:pt-8">
-          <p className="text-xl font-bold tracking-tight sm:text-2xl">Galih</p>
-          <p className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] uppercase">
+        <div className="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 pt-5 sm:px-10 sm:pt-8">
+          <p className="text-xl font-bold tracking-tight sm:text-2xl">Khrisanty/Galih</p>
+          <p className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] whitespace-nowrap uppercase">
             <span aria-hidden="true" className="size-2 rounded-full bg-espresso" />
             Open to opportunities
           </p>

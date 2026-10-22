@@ -47,7 +47,7 @@ All copy lives in `content/` and is validated with Zod at build time (`content/s
 
 ## Deploy
 
-Hosted on Netlify (`netlify.toml`): production deploys from `main`, every PR gets a deploy preview. Node and pnpm versions are pinned there. Without `NEXT_PUBLIC_SITE_URL`, the site URL falls back to `https://galih-mestikasari.netlify.app` (`lib/site.ts`).
+Hosted on Netlify (`netlify.toml`): production deploys from `main`, every PR gets a deploy preview. Node and pnpm versions are pinned there. Without `NEXT_PUBLIC_SITE_URL`, the site URL falls back to `https://khrisanty.netlify.app` (`lib/site.ts`).
 
 ## Structure
 
