@@ -67,7 +67,7 @@ export function Skills() {
         />
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           {columns.map((column, i) => (
-            <ul key={i} className="flex flex-col gap-4">
+            <ul key={i} className="reveal-stagger flex flex-col gap-4">
               {column.map((group, j) => (
                 <SkillCard key={group.id} group={group} fill={j === column.length - 1} />
               ))}

@@ -18,7 +18,7 @@ export function Certifications() {
           title="Always calibrating."
           intro="Training that keeps both the instruments and the analyst in spec."
         />
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="reveal-stagger mt-12 grid gap-5 md:grid-cols-3">
           {profile.certificates.map((item) => (
             <li
               key={item.title}

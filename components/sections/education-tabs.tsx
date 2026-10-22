@@ -44,7 +44,7 @@ export function EducationTabs({ items }: { items: EducationItem[] }) {
         role="tablist"
         aria-label="Education"
         onKeyDown={onKeyDown}
-        className="flex justify-center gap-6 sm:gap-10"
+        className="reveal flex justify-center gap-6 sm:gap-10"
       >
         {items.map((entry, i) => {
           const selected = i === active
@@ -86,53 +86,56 @@ export function EducationTabs({ items }: { items: EducationItem[] }) {
         })}
       </div>
 
-      {/* Only the panel takes the active degree's colors; the section stays as is. */}
-      <GradientPanel
-        className="tinted-mesh mt-8 p-3 sm:p-8 lg:p-12"
-        style={backdropStyle(item.backdrop)}
-      >
-        <div
-          role="tabpanel"
-          id={`${baseId}-panel`}
-          aria-labelledby={`${baseId}-tab-${item.id}`}
-          tabIndex={0}
-          className="rounded-[1.75rem] bg-card p-3 text-card-foreground shadow-float"
+      {/* Own wrapper: the panel's color transition must not be overridden by the reveal's */}
+      <div className="reveal mt-8">
+        {/* Only the panel takes the active degree's colors; the section stays as is. */}
+        <GradientPanel
+          className="tinted-mesh p-3 sm:p-8 lg:p-12"
+          style={backdropStyle(item.backdrop)}
         >
           <div
-            key={item.id}
-            className="grid animate-in gap-3 duration-500 fade-in-0 slide-in-from-bottom-2 motion-reduce:animate-none md:grid-cols-[1.2fr_1fr]"
+            role="tabpanel"
+            id={`${baseId}-panel`}
+            aria-labelledby={`${baseId}-tab-${item.id}`}
+            tabIndex={0}
+            className="rounded-[1.75rem] bg-card p-3 text-card-foreground shadow-float"
           >
-            <div className="flex flex-col gap-5 p-4 sm:p-6">
-              <p className="font-mono text-label font-medium text-muted-foreground uppercase">
-                {item.period}
-              </p>
-              <h3 className="text-title font-bold">{item.school}</h3>
-              <p className="text-lg font-medium">{item.degree}</p>
-              <p className="text-pretty text-muted-foreground">{item.blurb}</p>
-              <div>
-                <p className="text-sm font-medium">Key topics</p>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                  {item.focus.map((topic) => (
-                    <li key={topic} className="rounded-full bg-muted px-3.5 py-1.5 text-sm">
-                      {topic}
-                    </li>
-                  ))}
-                </ul>
+            <div
+              key={item.id}
+              className="grid animate-in gap-3 duration-500 fade-in-0 slide-in-from-bottom-2 motion-reduce:animate-none md:grid-cols-[1.2fr_1fr]"
+            >
+              <div className="flex flex-col gap-5 p-4 sm:p-6">
+                <p className="font-mono text-label font-medium text-muted-foreground uppercase">
+                  {item.period}
+                </p>
+                <h3 className="text-title font-bold">{item.school}</h3>
+                <p className="text-lg font-medium">{item.degree}</p>
+                <p className="text-pretty text-muted-foreground">{item.blurb}</p>
+                <div>
+                  <p className="text-sm font-medium">Key topics</p>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {item.focus.map((topic) => (
+                      <li key={topic} className="rounded-full bg-muted px-3.5 py-1.5 text-sm">
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div className="relative min-h-64">
-              <PhotoPlaceholder
-                label={`${item.school} · ${item.period}`}
-                className="absolute inset-0 h-full w-full rounded-[1.4rem]"
-              />
-              <div className="absolute top-4 right-4 rounded-2xl bg-card px-4 py-3 text-center shadow-float">
-                <p className="font-mono text-micro text-muted-foreground uppercase">GPA</p>
-                <p className="text-4xl leading-none font-bold tracking-tight">{item.gpa}</p>
+              <div className="relative min-h-64">
+                <PhotoPlaceholder
+                  label={`${item.school} · ${item.period}`}
+                  className="absolute inset-0 h-full w-full rounded-[1.4rem]"
+                />
+                <div className="absolute top-4 right-4 rounded-2xl bg-card px-4 py-3 text-center shadow-float">
+                  <p className="font-mono text-micro text-muted-foreground uppercase">GPA</p>
+                  <p className="text-4xl leading-none font-bold tracking-tight">{item.gpa}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </GradientPanel>
+        </GradientPanel>
+      </div>
     </div>
   )
 }

@@ -165,7 +165,6 @@
   --container-prose: 40rem;
 
   --animate-draw: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
-  --animate-reveal: reveal linear both;
   --animate-breathe: breathe 18s ease-in-out infinite alternate;
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-progress: progress 6s linear both;
@@ -176,17 +175,6 @@
     }
     to {
       stroke-dashoffset: 0;
-    }
-  }
-
-  @keyframes reveal {
-    from {
-      opacity: 0;
-      transform: translateY(1.25rem);
-    }
-    to {
-      opacity: 1;
-      transform: none;
     }
   }
 
@@ -373,13 +361,32 @@
     animation: var(--animate-breathe);
   }
 
-  /* Scroll reveal: CSS-only, progressive enhancement */
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: var(--animate-reveal);
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
-    }
+  /*
+   * Scroll reveal (see components/site/scroll-reveal.tsx). Hidden only once JS
+   * has set data-reveal, so content never stays invisible without it.
+   * Opacity + transform only: no layout shift.
+   */
+  html[data-reveal] .reveal {
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+  html[data-reveal] .reveal:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.98);
+  }
+  /* Cards in a row arrive one after another */
+  .reveal-stagger > :nth-child(2) {
+    --reveal-delay: 90ms;
+  }
+  .reveal-stagger > :nth-child(3) {
+    --reveal-delay: 180ms;
+  }
+  .reveal-stagger > :nth-child(4) {
+    --reveal-delay: 270ms;
+  }
+  .reveal-stagger > :nth-child(n + 5) {
+    --reveal-delay: 360ms;
   }
   .draw-line {
     stroke-dasharray: 1;

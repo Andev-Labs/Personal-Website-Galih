@@ -24,7 +24,7 @@ export function ExperienceBackdrop({
       style={backdropStyle(slides[active].backdrop)}
     >
       {children}
-      <div className="mx-auto mt-12 max-w-[96rem] px-3 sm:px-5">
+      <div className="reveal mx-auto mt-12 max-w-[96rem] px-3 sm:px-5">
         <ExperienceCarousel slides={slides} active={active} onActiveChange={setActive} />
       </div>
     </section>

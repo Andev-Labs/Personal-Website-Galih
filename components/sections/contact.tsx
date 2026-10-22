@@ -12,7 +12,7 @@ export function Contact() {
     <section id="contact" aria-labelledby="contact-heading" className="py-16 sm:py-24">
       <Container>
         <GradientPanel className="grid gap-8 p-3 sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-12 lg:p-14">
-          <div className="order-2 rounded-[1.75rem] bg-card p-6 text-card-foreground shadow-float sm:p-8 lg:order-1">
+          <div className="reveal order-2 rounded-[1.75rem] bg-card p-6 text-card-foreground shadow-float sm:p-8 lg:order-1">
             <p className="text-sm font-medium text-muted-foreground">Email</p>
             <a
               href={`mailto:${profile.email}`}
@@ -48,7 +48,7 @@ export function Contact() {
               </li>
             </ul>
           </div>
-          <div className="order-1 px-3 pt-6 text-espresso sm:px-0 sm:pt-0 lg:order-2 dark:text-bone">
+          <div className="reveal order-1 px-3 pt-6 text-espresso sm:px-0 sm:pt-0 lg:order-2 dark:text-bone">
             <Eyebrow className="text-espresso/80 dark:text-bone/80">Contact</Eyebrow>
             <h2 id="contact-heading" className="mt-4 text-headline font-bold text-balance">
               {profile.contact.headline}
