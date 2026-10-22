@@ -29,7 +29,7 @@ export const profileInput = {
     { label: "Experience", value: "6+ years" },
     { label: "Industries", value: "Pharma & Manufacturing" },
     { label: "Standards", value: "GMP · ISO 17025" },
-    { label: "Instruments", value: "HPLC · GC · ICP-OES" },
+    { label: "Instruments", value: "HPLC · GC · ICP‑OES" },
     { label: "Based in", value: "Cikarang, Bekasi" },
   ],
   about: [
@@ -213,7 +213,7 @@ export const profileInput = {
   ],
   beyond: {
     intro:
-      "Outside the lab I've always ended up holding the books, the minutes or the first-aid kit — the quiet jobs that keep a group running.",
+      "Outside the lab I've usually ended up holding the books, the minutes or the first-aid kit.",
     feature: {
       title: "Hatchling Conservation & Release",
       year: "2017",
