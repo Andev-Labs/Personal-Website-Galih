@@ -4,12 +4,19 @@ import { cn } from "@/lib/utils"
 
 type SectionLabelProps = ComponentProps<"p"> & {
   index?: string
+  as?: "p" | "h2"
 }
 
 /** Mono "specimen label", e.g. `01 — EXPERIENCE`. */
-export function SectionLabel({ index, className, children, ...props }: SectionLabelProps) {
+export function SectionLabel({
+  index,
+  as: Tag = "p",
+  className,
+  children,
+  ...props
+}: SectionLabelProps) {
   return (
-    <p
+    <Tag
       className={cn(
         "flex items-center gap-3 font-mono text-label text-muted-foreground uppercase",
         className,
@@ -23,6 +30,6 @@ export function SectionLabel({ index, className, children, ...props }: SectionLa
         </>
       ) : null}
       <span>{children}</span>
-    </p>
+    </Tag>
   )
 }

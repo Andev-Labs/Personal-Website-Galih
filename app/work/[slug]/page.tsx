@@ -38,8 +38,8 @@ function Block({ index, label, children }: { index: string; label: string; child
       aria-labelledby={id}
       className="reveal grid gap-6 border-t border-line-soft py-12 md:grid-cols-12 md:gap-8"
     >
-      <SectionLabel index={index} className="self-start md:col-span-3 md:pt-1">
-        <span id={id}>{label}</span>
+      <SectionLabel as="h2" id={id} index={index} className="self-start md:col-span-3 md:pt-1">
+        {label}
       </SectionLabel>
       <div className="md:col-span-9">{children}</div>
     </section>

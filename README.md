@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Khrisanty Galih Mestikasari — Portfolio
 
-## Getting Started
+"The Analyst's Notebook": a static portfolio for a Chemical Analyst / QC specialist, written for HR and recruiters.
 
-First, run the development server:
+Next.js 16 (App Router, Cache Components) · TypeScript strict · Tailwind CSS v4 · shadcn/ui · Zod · pnpm.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # http://localhost:3000
+pnpm build        # static build; fails if content is invalid
+pnpm lint && pnpm typecheck && pnpm format:check
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All copy lives in `content/` and is validated with Zod at build time (`content/schema.ts`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What                                                                                   | Where                                                 |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Name, hero, snapshot, about, experience, expertise, education, beyond the lab, contact | `content/profile.ts`                                  |
+| Case studies (one file each)                                                           | `content/work/*.ts`, registered in `content/index.ts` |
 
-## Learn More
+- **Metrics:** each case has `metrics: [{ label, value: null }]`. A metric stays hidden until `value` is set, so only fill it in with confirmed numbers.
+- **Process diagrams** are generated from `process[]` (3–5 steps; `label` max 18 characters).
 
-To learn more about Next.js, take a look at the following resources:
+## Swapping placeholders
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Placeholder  | How to replace                                                                                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------- |
+| LinkedIn URL | `linkedin` in `content/profile.ts`                                                                                    |
+| Portrait     | Replace `public/images/portrait.jpg` (portrait, 2:3 or 3:4). The duotone grade is applied in CSS.                     |
+| Case covers  | Replace `public/images/{bottles,workbench,instrument,pipette,labcoat}.jpg` and update the `cover.alt` text            |
+| CV           | Replace `public/cv.pdf`                                                                                               |
+| Domain       | Set `NEXT_PUBLIC_SITE_URL=https://your-domain` in Vercel. Canonical URLs, the sitemap, robots and JSON-LD all use it. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The current photos are Unsplash images used as placeholders under the Unsplash License.
 
-## Deploy on Vercel
+## Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/                  routes, metadata, OG images, icons, sitemap, robots
+components/site/      primitives: Container, SectionLabel, ChromatogramLine, DuotoneImage, ArchImage, header/footer
+components/sections/  home sections
+components/work/      case study process diagram
+content/              copy + Zod schema
+lib/                  site URL, theme script, JSON-LD, OG renderer
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Client components: the theme toggle, the active-nav highlight and the copy-email button. Everything else is a Server Component, prerendered at build time.
