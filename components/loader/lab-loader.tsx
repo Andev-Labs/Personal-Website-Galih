@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 
+import { closeLoader, isLoaderOpen } from "@/lib/loader"
 import { cn } from "@/lib/utils"
 
 import { createParticleField, type ParticleField } from "./particle-field"
@@ -37,8 +38,7 @@ export function LabLoader() {
         fieldRef.current?.destroy()
         fieldRef.current = null
         const hadFocus = dialogRef.current?.contains(document.activeElement) ?? false
-        // Releases the scroll lock and un-hides the page behind (see globals.css).
-        delete document.documentElement.dataset.loader
+        closeLoader()
         if (hadFocus) document.getElementById("main")?.focus({ preventScroll: true })
       },
       reducedMotion ? 0 : EXIT_MS,
@@ -46,7 +46,7 @@ export function LabLoader() {
   }
 
   useEffect(() => {
-    if (document.documentElement.dataset.loader !== "open") return
+    if (!isLoaderOpen()) return
     const canvas = canvasRef.current
     const anchor = anchorRef.current
     if (!canvas || !anchor) return
