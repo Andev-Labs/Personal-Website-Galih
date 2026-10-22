@@ -1,7 +1,9 @@
-export const LOADER_STORAGE_KEY = "lab-loader-seen"
+/** How long the loader stays before it enters the site on its own (ms). */
+export const LOADER_FAILSAFE_MS = 8000
 
 /**
- * Runs in <head> before first paint: on the first home visit of a session,
- * reveal the server-rendered loader shell so Home never flashes underneath.
+ * Runs in <head> before first paint on every full page load (first visit or
+ * refresh): reveals the server-rendered loader shell so the page never flashes
+ * underneath. The timeout is a failsafe in case the app's JS never boots.
  */
-export const loaderScript = `(function(){try{if(location.pathname==="/"&&!sessionStorage.getItem("${LOADER_STORAGE_KEY}"))document.documentElement.dataset.loader="open"}catch(e){}})()`
+export const loaderScript = `(function(){var d=document.documentElement;d.dataset.loader="open";setTimeout(function(){delete d.dataset.loader},${LOADER_FAILSAFE_MS})})()`

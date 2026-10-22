@@ -329,8 +329,8 @@
 
 /*
  * Loading screen. The shell is server-rendered but hidden; an inline <head>
- * script sets data-loader="open" before first paint on the first home visit of
- * a session, so there is no flash of Home and no hydration mismatch.
+ * script sets data-loader="open" before first paint on every full page load,
+ * so there is no flash of the page and no hydration mismatch.
  */
 .lab-loader {
   display: none;
@@ -349,8 +349,8 @@ html[data-loader="open"] body > :not(.lab-loader-root) {
   visibility: hidden;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .lab-loader-bar {
-    animation: bar-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.1s both;
+  .lab-loader-progress {
+    animation: progress linear both;
   }
   /* Starts faintly visible rather than at 0, so the headline still paints early (LCP). */
   .lab-loader-word {
@@ -361,16 +361,6 @@ html[data-loader="open"] body > :not(.lab-loader-root) {
   from {
     opacity: 0.06;
     transform: translateY(0.45em);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes bar-in {
-  from {
-    opacity: 0;
-    transform: translateY(6rem);
   }
   to {
     opacity: 1;

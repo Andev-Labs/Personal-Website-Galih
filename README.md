@@ -39,12 +39,11 @@ All copy lives in `content/` and is validated with Zod at build time (`content/s
 
 ## Loading screen
 
-`components/loader/` holds the first-visit "This lab is awake." screen: Canvas 2D particles (atom, molecule, chromatogram, crystal), no extra dependencies.
+`components/loader/` holds the welcome screen ("Welcome to Galih's Portfolio."): a Canvas 2D particle atom (cloud, nucleus, three orbits) with no extra dependencies.
 
-- Shown once per browser session (`sessionStorage["lab-loader-seen"]`), only on `/`.
-- `lib/loader.ts` is an inline `<head>` script that reveals the server-rendered shell before first paint, so there is no flash of Home and no hydration mismatch. While it is open, the page behind is `visibility: hidden` (not focusable, no layout shift on close).
-- Esc skips; ←/→ switch shapes; reduced motion shows the final state statically.
-- To see it again: `sessionStorage.removeItem("lab-loader-seen")` and reload.
+- Shown on every full page load (first visit or refresh). It enters the site on its own after ~3.2s (1.2s with reduced motion). "Skip intro" or Esc enters right away.
+- `lib/loader.ts` is an inline `<head>` script that reveals the server-rendered shell before first paint, so the page never flashes underneath and there is no hydration mismatch. It also has an 8s failsafe in case the JS never boots.
+- While it is open, the page behind is `visibility: hidden` (not focusable, and no layout shift on close). Client-side navigation does not show it again.
 
 ## Structure
 

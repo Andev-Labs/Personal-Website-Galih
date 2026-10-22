@@ -1,4 +1,4 @@
-import { buildShape, createRandom, type Point, type VariantId } from "./shapes"
+import { buildAtom, createRandom, type Point } from "./atom-shape"
 
 type Particle = {
   x: number
@@ -24,7 +24,6 @@ type FieldOptions = {
 }
 
 export type ParticleField = {
-  setVariant: (id: VariantId) => void
   burst: () => void
   destroy: () => void
 }
@@ -48,7 +47,7 @@ const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
 
 /**
  * Canvas 2D particle field for the loading screen: a dot "electron cloud" with a
- * nucleus and three orbits, morphing between shapes. No dependencies; the loop
+ * nucleus and three orbits. No dependencies; the loop
  * pauses while the tab is hidden and never runs under reduced motion.
  */
 export function createParticleField({
@@ -58,7 +57,7 @@ export function createParticleField({
   reducedMotion,
 }: FieldOptions): ParticleField {
   const ctx = canvas.getContext("2d")
-  if (!ctx) return { setVariant: () => {}, burst: () => {}, destroy: () => {} }
+  if (!ctx) return { burst: () => {}, destroy: () => {} }
 
   const small = window.innerWidth < 640
   const count = small ? 150 : 260
@@ -70,8 +69,6 @@ export function createParticleField({
   let cy = 0
   let radius = 100
 
-  let variant: VariantId = "atom"
-  let atomness = 1
   let elapsed = reducedMotion ? 10_000 : 0
   let bursting = false
   let burstTime = 0
@@ -96,7 +93,7 @@ export function createParticleField({
 
   measure()
 
-  const targets = buildShape("atom", count)
+  const targets = buildAtom(count)
   const particles: Particle[] = targets.map((target) => {
     const settled = reducedMotion
     return {
@@ -200,8 +197,7 @@ export function createParticleField({
       ctx!.fill()
     }
 
-    if (atomness < 0.01) return
-    const a = atomness * fadeOut
+    const a = fadeOut
 
     // Orbits, drawn in one after another.
     ORBIT_ANGLES.forEach((angle, i) => {
@@ -251,9 +247,6 @@ export function createParticleField({
     last = now
     elapsed += dt
     if (bursting) burstTime += dt
-
-    const target = variant === "atom" ? 1 : 0
-    atomness += (target - atomness) * Math.min(1, dt / 160)
 
     const goal = pointer.active
       ? {
@@ -322,26 +315,6 @@ export function createParticleField({
   else start()
 
   return {
-    setVariant(id) {
-      if (id === variant) return
-      variant = id
-      const next = buildShape(id, count)
-      particles.forEach((p, i) => {
-        p.target = next[i]
-        p.delay = 0
-        if (!reducedMotion) {
-          // A little kick so the morph feels alive.
-          p.vx += (random() - 0.5) * 6
-          p.vy += (random() - 0.5) * 6
-        }
-      })
-      applyDepth()
-      if (reducedMotion) {
-        atomness = id === "atom" ? 1 : 0
-        settle()
-        draw()
-      }
-    },
     burst() {
       if (reducedMotion || bursting) return
       bursting = true
