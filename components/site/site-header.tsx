@@ -23,7 +23,7 @@ export function SiteHeader() {
           className="text-xl font-bold tracking-tight"
           aria-label={`${profile.name}, home`}
         >
-          Galih
+          Khrisanty/Galih
         </Link>
         <nav aria-label="Primary" className="hidden lg:block">
           <NavLinks items={primaryNav} more={moreNav} />
