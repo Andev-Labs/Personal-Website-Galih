@@ -1,4 +1,4 @@
-# Netlify detects Next.js and runs its OpenNext adapter automatically.
+# Next.js runs on Netlify through the OpenNext adapter (plugin below).
 [build]
   command = "pnpm build"
   publish = ".next"
@@ -10,3 +10,7 @@
 # OG images read fonts from assets/ at render time.
 [functions]
   included_files = ["assets/**"]
+
+# Sites linked through the API skip runtime auto-install, so pin the adapter here.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
