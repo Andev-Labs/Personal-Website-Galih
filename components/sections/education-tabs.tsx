@@ -1,32 +1,26 @@
 "use client"
 
-import { useId, useRef, type KeyboardEvent } from "react"
+import { useId, useRef, useState, type KeyboardEvent } from "react"
 
 import { GradientPanel } from "@/components/site/gradient-panel"
 import { PhotoPlaceholder } from "@/components/site/photo-placeholder"
 import { SkillIcon } from "@/components/site/skill-icon"
 import type { Profile } from "@/content"
+import { backdropStyle } from "@/lib/backdrop"
 import { cn } from "@/lib/utils"
 
 type EducationItem = Profile["education"][number]
 
 /** Calendly hero-style round icon tabs over a gradient panel with a white card. */
-export function EducationTabs({
-  items,
-  active,
-  onActiveChange,
-}: {
-  items: EducationItem[]
-  active: number
-  onActiveChange: (index: number) => void
-}) {
+export function EducationTabs({ items }: { items: EducationItem[] }) {
+  const [active, setActive] = useState(0)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const baseId = useId()
   const item = items[active]
 
   function select(index: number) {
     const next = (index + items.length) % items.length
-    onActiveChange(next)
+    setActive(next)
     tabRefs.current[next]?.focus()
   }
 
@@ -66,7 +60,7 @@ export function EducationTabs({
               aria-selected={selected}
               aria-controls={`${baseId}-panel`}
               tabIndex={selected ? 0 : -1}
-              onClick={() => onActiveChange(i)}
+              onClick={() => setActive(i)}
               className="group flex flex-col items-center gap-2 rounded-2xl p-1"
             >
               <span
@@ -82,7 +76,7 @@ export function EducationTabs({
               <span
                 className={cn(
                   "text-sm font-medium",
-                  selected ? "text-foreground" : "text-espresso/80 dark:text-bone/80",
+                  selected ? "text-foreground" : "text-muted-foreground",
                 )}
               >
                 {entry.tab}
@@ -92,7 +86,11 @@ export function EducationTabs({
         })}
       </div>
 
-      <GradientPanel className="mt-8 p-3 sm:p-8 lg:p-12">
+      {/* Only the panel takes the active degree's colors; the section stays as is. */}
+      <GradientPanel
+        className="tinted-mesh mt-8 p-3 sm:p-8 lg:p-12"
+        style={backdropStyle(item.backdrop)}
+      >
         <div
           role="tabpanel"
           id={`${baseId}-panel`}

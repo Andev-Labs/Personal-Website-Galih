@@ -28,7 +28,7 @@ const backdropThemeSchema = z.object({
   mesh: hexColor,
 })
 
-/** Section background while an item (role, degree) is active. */
+/** Background colors while an item (role, degree) is active. */
 const backdropSchema = z.object({ light: backdropThemeSchema, dark: backdropThemeSchema })
 
 const iconSchema = z.enum([
@@ -124,7 +124,7 @@ export const profileSchema = z.object({
         gpa: nonEmpty,
         blurb: nonEmpty,
         focus: z.array(nonEmpty).min(1),
-        /** Section background while this degree is active. */
+        /** Gradient panel colors while this degree is active. */
         backdrop: backdropSchema,
       }),
     )

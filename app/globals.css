@@ -293,35 +293,55 @@
   }
 
   /*
-   * Tinted section (Work Experience, Education): active item color top → mid
-   * → page color bottom. The active item sets --backdrop-*-light/dark inline
-   * (see content/profile.ts and lib/backdrop.ts); the registered --xp-*
-   * colors below interpolate, so the gradient and the mesh accent blob fade
-   * between items. Paint only, no layout.
+   * Tinted colors follow the active item: it sets --backdrop-*-light/dark
+   * inline (see content/profile.ts and lib/backdrop.ts) and the registered
+   * --xp-* colors interpolate, so everything painted with them fades between
+   * items. Paint only, no layout.
+   *  .tinted-backdrop: whole section gradient + mesh accent (Work Experience)
+   *  .tinted-mesh: one mesh panel only (Education)
    */
-  .tinted-backdrop {
+  .tinted-backdrop,
+  .tinted-mesh {
     --xp-top: var(--backdrop-top-light, var(--clay));
     --xp-mid: var(--backdrop-mid-light, var(--blush));
     --xp-mesh: var(--backdrop-mesh-light, var(--clay));
-    --xp-end: var(--bone);
     /* Mesh panels (and side pills) inside follow the active item */
     --mesh-3: var(--xp-mesh);
-    background: linear-gradient(180deg, var(--xp-top) 0%, var(--xp-mid) 48%, var(--xp-end) 100%);
     transition-property: --xp-top, --xp-mid, --xp-mesh;
     transition-duration: 600ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .dark .tinted-backdrop {
+  .dark .tinted-backdrop,
+  .dark .tinted-mesh {
     --xp-top: var(--backdrop-top-dark, #5c4238);
     --xp-mid: var(--backdrop-mid-dark, #45332c);
     --xp-mesh: var(--backdrop-mesh-dark, #6e4f43);
-    --xp-end: var(--espresso);
   }
   @media (prefers-reduced-motion: reduce) {
-    .tinted-backdrop {
+    .tinted-backdrop,
+    .tinted-mesh {
       transition-duration: 120ms;
       transition-timing-function: linear;
     }
+  }
+
+  /* Section gradient: active item color top → mid → page color bottom */
+  .tinted-backdrop {
+    --xp-end: var(--bone);
+    background: linear-gradient(180deg, var(--xp-top) 0%, var(--xp-mid) 48%, var(--xp-end) 100%);
+  }
+  .dark .tinted-backdrop {
+    --xp-end: var(--espresso);
+  }
+
+  /* Mesh panel: every blob takes the active item's colors, not just the accent */
+  .tinted-mesh {
+    --mesh-1: var(--xp-mid);
+    --mesh-4: var(--xp-top);
+  }
+  .dark .tinted-mesh {
+    --mesh-1: var(--xp-top);
+    --mesh-4: var(--xp-mesh);
   }
 }
 
