@@ -3,9 +3,11 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Toaster } from "sonner"
 
 import { BackToTop } from "@/components/site/back-to-top"
+import { LabLoader } from "@/components/loader/lab-loader"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
 import { profile } from "@/content"
+import { loaderScript } from "@/lib/loader"
 import { siteUrl } from "@/lib/site"
 import { themeScript } from "@/lib/theme"
 import { cn } from "@/lib/utils"
@@ -63,8 +65,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: loaderScript }} />
       </head>
       <body className="flex min-h-dvh flex-col">
+        <LabLoader />
         <SiteHeader />
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
