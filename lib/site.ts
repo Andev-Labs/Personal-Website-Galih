@@ -1,10 +1,11 @@
+/** Production origin on Netlify, used whenever NEXT_PUBLIC_SITE_URL is not set. */
+const PRODUCTION_URL = "https://galih-mestikasari.netlify.app"
+
 function resolveSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  }
-  return "http://localhost:3000"
+  if (process.env.NODE_ENV === "development") return "http://localhost:3000"
+  return PRODUCTION_URL
 }
 
-/** Canonical origin. Set NEXT_PUBLIC_SITE_URL once the custom domain is live. */
+/** Canonical origin. Set NEXT_PUBLIC_SITE_URL in Netlify once a custom domain is live. */
 export const siteUrl = resolveSiteUrl().replace(/\/$/, "")

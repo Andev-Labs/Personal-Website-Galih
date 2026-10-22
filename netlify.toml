@@ -1,0 +1,12 @@
+# Netlify detects Next.js and runs its OpenNext adapter automatically.
+[build]
+  command = "pnpm build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "10.9.0"
+
+# OG images read fonts from assets/ at render time.
+[functions]
+  included_files = ["assets/**"]
