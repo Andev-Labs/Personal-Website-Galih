@@ -1,6 +1,6 @@
 # Khrisanty Galih Mestikasari — Portfolio
 
-"The Analyst's Notebook": a static portfolio for a Chemical Analyst / QC specialist, written for HR and recruiters.
+A static portfolio for a Chemical Analyst / QC specialist, written for HR and recruiters. Content structure follows the reference CV portfolio; visual style is Calendly + cloudstudio in a nude palette.
 
 Next.js 16 (App Router, Cache Components) · TypeScript strict · Tailwind CSS v4 · shadcn/ui · Zod · pnpm.
 
@@ -17,35 +17,45 @@ pnpm lint && pnpm typecheck && pnpm format:check
 
 All copy lives in `content/` and is validated with Zod at build time (`content/schema.ts`).
 
-| What                                                                                   | Where                                                 |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| Name, hero, snapshot, about, experience, expertise, education, beyond the lab, contact | `content/profile.ts`                                  |
-| Case studies (one file each)                                                           | `content/work/*.ts`, registered in `content/index.ts` |
+| What                                                                                            | Where                                                 |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Name, hero, summary + stats, skills, experience, education, certifications, activities, contact | `content/profile.ts`                                  |
+| Case studies (one file each)                                                                    | `content/work/*.ts`, registered in `content/index.ts` |
 
 - **Metrics:** each case has `metrics: [{ label, value: null }]`. A metric stays hidden until `value` is set, so only fill it in with confirmed numbers.
 - **Process diagrams** are generated from `process[]` (3–5 steps; `label` max 18 characters).
 
 ## Swapping placeholders
 
-| Placeholder  | How to replace                                                                                                        |
-| ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| LinkedIn URL | `linkedin` in `content/profile.ts`                                                                                    |
-| Portrait     | Replace `public/images/portrait.jpg` (portrait, 2:3 or 3:4). The duotone grade is applied in CSS.                     |
-| Case covers  | Replace `public/images/{bottles,workbench,instrument,pipette,labcoat}.jpg` and update the `cover.alt` text            |
-| CV           | Replace `public/cv.pdf`                                                                                               |
-| Domain       | Set `NEXT_PUBLIC_SITE_URL=https://your-domain` in Vercel. Canonical URLs, the sitemap, robots and JSON-LD all use it. |
+| Placeholder  | How to replace                                                                                                                          |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| LinkedIn URL | `linkedin` in `content/profile.ts`                                                                                                      |
+| Photos       | There are none on purpose. Every photo slot is a `PhotoPlaceholder` (nude gradient); swap it for `next/image` at the same aspect ratio. |
+| CV           | Replace `public/cv.pdf`                                                                                                                 |
+| Domain       | Set `NEXT_PUBLIC_SITE_URL=https://your-domain` in Vercel. Canonical URLs, the sitemap, robots and JSON-LD all use it.                   |
 
-The current photos are Unsplash images used as placeholders under the Unsplash License.
+- **Stats** (`summary.stats`) must stay backed by the CV. `count` drives the count-up animation.
+- **Work Experience carousel:** the mini process diagram on each card comes from the role's first case study; roles without one use `flow`.
+
+## Loading screen
+
+`components/loader/` holds the first-visit "This lab is awake." screen: Canvas 2D particles (atom, molecule, chromatogram, crystal), no extra dependencies.
+
+- Shown once per browser session (`sessionStorage["lab-loader-seen"]`), only on `/`.
+- `lib/loader.ts` is an inline `<head>` script that reveals the server-rendered shell before first paint, so there is no flash of Home and no hydration mismatch. While it is open, the page behind is `visibility: hidden` (not focusable, no layout shift on close).
+- Esc skips; ←/→ switch shapes; reduced motion shows the final state statically.
+- To see it again: `sessionStorage.removeItem("lab-loader-seen")` and reload.
 
 ## Structure
 
 ```
 app/                  routes, metadata, OG images, icons, sitemap, robots
-components/site/      primitives: Container, SectionLabel, ChromatogramLine, DuotoneImage, ArchImage, header/footer
+components/site/      primitives: Container, GradientPanel, SectionHeader, Eyebrow, PhotoPlaceholder, AtomIcon, header/footer
+components/loader/    loading screen + particle engine
 components/sections/  home sections
 components/work/      case study process diagram
 content/              copy + Zod schema
 lib/                  site URL, theme script, JSON-LD, OG renderer
 ```
 
-Client components: the theme toggle, the active-nav highlight and the copy-email button. Everything else is a Server Component, prerendered at build time.
+Client components: the loader, theme toggle, nav highlight / More menu / mobile menu, back-to-top, count-up, experience carousel, education tabs and the copy-email button. Everything else is a Server Component, prerendered at build time.
