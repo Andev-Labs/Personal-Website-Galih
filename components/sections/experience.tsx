@@ -2,7 +2,8 @@ import { Container } from "@/components/site/container"
 import { SectionHeader } from "@/components/site/section-header"
 import { getCaseStudy, profile } from "@/content"
 
-import { ExperienceCarousel, type ExperienceSlide } from "./experience-carousel"
+import { ExperienceBackdrop } from "./experience-backdrop"
+import type { ExperienceSlide } from "./experience-carousel"
 
 function toSlides(): ExperienceSlide[] {
   return profile.experience.map((role) => {
@@ -27,17 +28,14 @@ function toSlides(): ExperienceSlide[] {
       flowTitle: lead ? lead.kicker : "Lab routine",
       highlights: role.highlights,
       cases,
+      backdrop: role.backdrop,
     }
   })
 }
 
 export function Experience() {
   return (
-    <section
-      id="experience"
-      aria-labelledby="experience-heading"
-      className="experience-backdrop overflow-hidden py-16 sm:py-24"
-    >
+    <ExperienceBackdrop slides={toSlides()}>
       <Container>
         <SectionHeader
           id="experience-heading"
@@ -47,9 +45,6 @@ export function Experience() {
           className="[&_p]:text-espresso/80 dark:[&_p]:text-bone/80"
         />
       </Container>
-      <div className="mx-auto mt-12 max-w-[96rem] px-3 sm:px-5">
-        <ExperienceCarousel slides={toSlides()} />
-      </div>
-    </section>
+    </ExperienceBackdrop>
   )
 }

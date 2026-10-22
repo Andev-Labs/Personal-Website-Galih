@@ -292,13 +292,53 @@
     );
   }
 
-  /* Work Experience backdrop: clay-rose top → blush → cream bottom */
+  /*
+   * Work Experience backdrop: role color top → mid → page color bottom.
+   * The active role sets --xp-*-light/dark inline (see content/profile.ts);
+   * the registered --xp-* colors below interpolate, so the gradient and the
+   * mesh accent blob fade between roles. Paint only, no layout.
+   */
   .experience-backdrop {
-    background: linear-gradient(180deg, var(--clay) 0%, var(--blush) 48%, var(--bone) 100%);
+    --xp-top: var(--xp-top-light, var(--clay));
+    --xp-mid: var(--xp-mid-light, var(--blush));
+    --xp-mesh: var(--xp-mesh-light, var(--clay));
+    --xp-end: var(--bone);
+    /* Card mesh panel and side pills follow the active role */
+    --mesh-3: var(--xp-mesh);
+    background: linear-gradient(180deg, var(--xp-top) 0%, var(--xp-mid) 48%, var(--xp-end) 100%);
+    transition-property: --xp-top, --xp-mid, --xp-mesh;
+    transition-duration: 600ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
   .dark .experience-backdrop {
-    background: linear-gradient(180deg, #5c4238 0%, #45332c 48%, var(--espresso) 100%);
+    --xp-top: var(--xp-top-dark, #5c4238);
+    --xp-mid: var(--xp-mid-dark, #45332c);
+    --xp-mesh: var(--xp-mesh-dark, #6e4f43);
+    --xp-end: var(--espresso);
   }
+  @media (prefers-reduced-motion: reduce) {
+    .experience-backdrop {
+      transition-duration: 120ms;
+      transition-timing-function: linear;
+    }
+  }
+}
+
+/* Animatable Work Experience colors (gradients themselves can't transition) */
+@property --xp-top {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c9a08a;
+}
+@property --xp-mid {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e8c9b8;
+}
+@property --xp-mesh {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c9a08a;
 }
 
 @media (prefers-reduced-motion: reduce) {

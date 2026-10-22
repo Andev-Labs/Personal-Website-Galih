@@ -16,6 +16,18 @@ const metricSlotSchema = z.object({
   value: nonEmpty.nullable(),
 })
 
+const hexColor = z.string().regex(/^#[0-9a-f]{6}$/i, "Use a 6-digit hex color")
+
+/** Work Experience backdrop for one theme: section gradient + mesh accent blob. */
+const backdropSchema = z.object({
+  /** Top of the section gradient. Section header text sits on it, keep 4.5:1. */
+  top: hexColor,
+  /** Middle of the section gradient. */
+  mid: hexColor,
+  /** Accent blob of the card's mesh panel and side pills. */
+  mesh: hexColor,
+})
+
 const iconSchema = z.enum([
   "flask",
   "beaker",
@@ -92,6 +104,8 @@ export const profileSchema = z.object({
         flow: z.array(nonEmpty.max(18)).min(3).max(5).optional(),
         highlights: z.array(nonEmpty).min(1),
         caseSlugs: z.array(nonEmpty).default([]),
+        /** Section background while this role is active. */
+        backdrop: z.object({ light: backdropSchema, dark: backdropSchema }),
       }),
     )
     .min(1),

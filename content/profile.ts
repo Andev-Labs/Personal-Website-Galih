@@ -153,6 +153,11 @@ export const profileInput = {
         "Run routine Genba walks to find and fix quality issues where they start.",
       ],
       caseSlugs: ["incoming-material-gatekeeping", "ppwr-packaging-compliance"],
+      // Clay-rose
+      backdrop: {
+        light: { top: "#c9a08a", mid: "#e8c9b8", mesh: "#c9a08a" },
+        dark: { top: "#5c4238", mid: "#45332c", mesh: "#6e4f43" },
+      },
     },
     {
       id: "sakafarma",
@@ -174,6 +179,11 @@ export const profileInput = {
         "Supported the Supervisor in Out-of-Specification (OOS) investigations and the resulting Corrective and Preventive Actions (CAPA).",
       ],
       caseSlugs: ["oos-investigation-capa", "method-transfer-validation", "qcc-genba-improvement"],
+      // Blush
+      backdrop: {
+        light: { top: "#cda39c", mid: "#eed3cd", mesh: "#cba099" },
+        dark: { top: "#5e3f3d", mid: "#46302f", mesh: "#6e4846" },
+      },
     },
     {
       id: "kalbe",
@@ -196,6 +206,11 @@ export const profileInput = {
         "Interpreted analytical data and compiled reports that fed directly into quality release decisions.",
       ],
       caseSlugs: [],
+      // Sand
+      backdrop: {
+        light: { top: "#c9a67e", mid: "#ecdcc6", mesh: "#c9a47a" },
+        dark: { top: "#59452f", mid: "#433526", mesh: "#6a5238" },
+      },
     },
     {
       id: "sucofindo",
@@ -216,6 +231,11 @@ export const profileInput = {
         "Characterized waste samples by atomic absorption spectroscopy (AAS).",
       ],
       caseSlugs: [],
+      // Taupe
+      backdrop: {
+        light: { top: "#bfab9e", mid: "#e0d5cb", mesh: "#bfab9e" },
+        dark: { top: "#4f443e", mid: "#3a312d", mesh: "#5e514a" },
+      },
     },
   ],
   education: [

@@ -21,6 +21,7 @@ export type ExperienceSlide = {
   flowTitle: string
   highlights: string[]
   cases: { slug: string; title: string }[]
+  backdrop: Record<"light" | "dark", { top: string; mid: string; mesh: string }>
 }
 
 const SWIPE_THRESHOLD = 48
@@ -90,8 +91,15 @@ function MiniProcess({ title, steps }: { title: string; steps: string[] }) {
   )
 }
 
-export function ExperienceCarousel({ slides }: { slides: ExperienceSlide[] }) {
-  const [active, setActive] = useState(0)
+export function ExperienceCarousel({
+  slides,
+  active,
+  onActiveChange,
+}: {
+  slides: ExperienceSlide[]
+  active: number
+  onActiveChange: (index: number) => void
+}) {
   const [direction, setDirection] = useState<1 | -1>(1)
   const [userPaused, setUserPaused] = useState(false)
   const [hovered, setHovered] = useState(false)
@@ -106,7 +114,7 @@ export function ExperienceCarousel({ slides }: { slides: ExperienceSlide[] }) {
     const next = (index + count) % count
     if (next === active) return
     setDirection(dir ?? (next > active ? 1 : -1))
-    setActive(next)
+    onActiveChange(next)
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLElement>) {
