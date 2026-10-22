@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Toaster } from "sonner"
 
 import { BackToTop } from "@/components/site/back-to-top"
+import { HtmlStateRestorer } from "@/components/site/html-state-restorer"
 import { LabLoader } from "@/components/loader/lab-loader"
 import { ScrollReveal } from "@/components/site/scroll-reveal"
 import { SiteFooter } from "@/components/site/site-footer"
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: loaderScript }} />
       </head>
       <body className="flex min-h-dvh flex-col">
+        <HtmlStateRestorer />
         <LabLoader />
         <SiteHeader />
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
