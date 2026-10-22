@@ -4,7 +4,6 @@ import Link from "next/link"
 import { profile } from "@/content"
 import { moreNav, primaryNav } from "@/lib/nav"
 
-import { AtomIcon } from "./atom-icon"
 import { MobileMenu } from "./mobile-menu"
 import { NavLinks } from "./nav-links"
 import { ThemeToggle } from "./theme-toggle"
@@ -21,13 +20,10 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-3 rounded-full border border-line-soft bg-card/85 pr-3 pl-5 shadow-card backdrop-blur-md">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-lg font-bold tracking-tight"
+          className="text-xl font-bold tracking-tight"
           aria-label={`${profile.name}, home`}
         >
-          <AtomIcon className="size-6" />
-          <span>
-            galih.qc<span className="text-cocoa dark:text-nude">*</span>
-          </span>
+          Galih
         </Link>
         <nav aria-label="Primary" className="hidden lg:block">
           <NavLinks items={primaryNav} more={moreNav} />

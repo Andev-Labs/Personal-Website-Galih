@@ -90,9 +90,7 @@ export function LabLoader() {
         />
 
         <div className="relative flex items-center justify-between px-5 pt-5 sm:px-10 sm:pt-8">
-          <p className="text-xl font-bold tracking-tight sm:text-2xl">
-            galih.qc<span className="text-cocoa">*</span>
-          </p>
+          <p className="text-xl font-bold tracking-tight sm:text-2xl">Galih</p>
           <p className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] uppercase">
             <span aria-hidden="true" className="size-2 rounded-full bg-espresso" />
             Open to opportunities

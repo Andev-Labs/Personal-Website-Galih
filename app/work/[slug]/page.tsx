@@ -160,7 +160,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                     <dt className="font-mono text-micro text-muted-foreground uppercase">
                       {metric.label}
                     </dt>
-                    <dd className="font-serif text-5xl">{metric.value}</dd>
+                    <dd className="text-5xl font-bold tracking-tight">{metric.value}</dd>
                   </div>
                 ))}
               </dl>

@@ -22,7 +22,6 @@ export const profileInput = {
     tagline: "Chemical Analyst · Quality Control",
     statement:
       "Six years of keeping results honest — from pharmaceutical QC labs to incoming material inspection. I turn samples, specs and data into decisions a plant can trust.",
-    instruments: ["HPLC", "GC", "ICP-OES", "AAS", "FTIR", "UV-Vis"],
     floating: ["HPLC ✓", "ISO 17025", "GMP · GLP"],
   },
   summary: {

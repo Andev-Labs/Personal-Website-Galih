@@ -34,16 +34,6 @@ export function Hero() {
         <p className="mt-5 max-w-2xl text-lg text-pretty text-muted-foreground sm:text-xl">
           {hero.statement}
         </p>
-        <ul aria-label="Instruments" className="mt-7 flex max-w-xl flex-wrap justify-center gap-2">
-          {hero.instruments.map((item) => (
-            <li
-              key={item}
-              className="rounded-full border border-line-soft bg-card px-3.5 py-1.5 font-mono text-xs font-medium"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
             href={profile.cvPath}

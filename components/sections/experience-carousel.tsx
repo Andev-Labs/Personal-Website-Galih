@@ -180,7 +180,7 @@ export function ExperienceCarousel({ slides }: { slides: ExperienceSlide[] }) {
           >
             <div className="flex flex-col gap-6 p-4 sm:p-6">
               <h3 className="text-title font-bold text-balance">{slide.impact}</h3>
-              <blockquote className="font-serif text-2xl leading-snug text-pretty sm:text-[1.75rem]">
+              <blockquote className="text-lg leading-relaxed font-medium text-pretty sm:text-xl">
                 &ldquo;{slide.quote}&rdquo;
               </blockquote>
               <ul aria-label="Role details" className="flex flex-wrap gap-1.5">

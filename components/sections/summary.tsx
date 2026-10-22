@@ -34,11 +34,11 @@ export function Summary() {
                 </dt>
                 <dd className="flex flex-col gap-3">
                   {stat.count ? (
-                    <span className="font-serif text-stat">
+                    <span className="text-stat font-bold tracking-[-0.04em]">
                       <CountUp to={stat.count} suffix={stat.suffix} />
                     </span>
                   ) : (
-                    <span className="font-serif text-[2rem] leading-[1.05] text-balance">
+                    <span className="text-[2rem] leading-[1.05] font-bold tracking-[-0.03em] text-balance">
                       {stat.value}
                     </span>
                   )}

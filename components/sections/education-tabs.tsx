@@ -122,7 +122,7 @@ export function EducationTabs({ items }: { items: EducationItem[] }) {
               />
               <div className="absolute top-4 right-4 rounded-2xl bg-card px-4 py-3 text-center shadow-float">
                 <p className="font-mono text-micro text-muted-foreground uppercase">GPA</p>
-                <p className="font-serif text-4xl leading-none">{item.gpa}</p>
+                <p className="text-4xl leading-none font-bold tracking-tight">{item.gpa}</p>
               </div>
             </div>
           </div>

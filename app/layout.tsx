@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import { Toaster } from "sonner"
 
 import { BackToTop } from "@/components/site/back-to-top"
@@ -22,13 +22,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-})
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
 })
 
 export const metadata: Metadata = {
@@ -58,11 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(geistSans.variable, geistMono.variable, instrumentSerif.variable)}
-    >
+    <html lang="en" suppressHydrationWarning className={cn(geistSans.variable, geistMono.variable)}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: loaderScript }} />

@@ -41,7 +41,6 @@ export const profileSchema = z.object({
     headline: nonEmpty,
     tagline: nonEmpty,
     statement: nonEmpty,
-    instruments: z.array(nonEmpty).min(3).max(8),
     floating: z.array(nonEmpty).min(2).max(4),
   }),
   summary: z.object({
