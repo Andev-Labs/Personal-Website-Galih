@@ -1,16 +1,17 @@
 import { profile } from "@/content"
 
-import { ChromatogramLine } from "./chromatogram-line"
+import { AtomIcon } from "./atom-icon"
 import { Container } from "./container"
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto pb-10">
+    <footer className="mt-auto pt-6 pb-10">
       <Container>
-        <ChromatogramLine className="mb-8" height={36} />
-        <div className="flex flex-col gap-4 font-mono text-label text-muted-foreground uppercase sm:flex-row sm:items-center sm:justify-between">
-          <p>© {profile.name}</p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="flex flex-col gap-4 border-t border-line-soft pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p className="inline-flex items-center gap-2">
+            <AtomIcon className="size-4" />© {profile.name} · {profile.location}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 font-medium">
             <li>
               <a className="hover:text-foreground" href={`mailto:${profile.email}`}>
                 Email

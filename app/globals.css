@@ -5,72 +5,93 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * The Analyst's Notebook — palette
- * Bone #F6F1EB · Sand #EADFD3 · Nude #D9BBA5 · Clay #B08D7A (lines only)
- * Cocoa #6B4F43 (links) · Espresso #2B211D (text)
+ * Nude, Calendly-style palette
+ * Bone #F6F1EB · Sand #EADFD3 · Cocoa #6B4F43 (accent) · Espresso #2B211D (text)
+ * Mesh: Blush #E8C9B8 → Sand #EADFD3 → Clay #C9A08A → Rose-taupe #B98A83
  */
 :root {
   --bone: #f6f1eb;
   --sand: #eadfd3;
   --nude: #d9bba5;
-  --clay: #b08d7a;
+  --blush: #e8c9b8;
+  --clay: #c9a08a;
+  --rose-taupe: #b98a83;
   --cocoa: #6b4f43;
   --espresso: #2b211d;
+  --paper: #fffcf8;
+  --loader: #f1e2d6;
 
   --background: var(--bone);
   --foreground: var(--espresso);
   --surface: var(--sand);
-  --card: var(--sand);
+  /* "White" Calendly cards */
+  --card: var(--paper);
   --card-foreground: var(--espresso);
-  --popover: var(--bone);
+  --popover: var(--paper);
   --popover-foreground: var(--espresso);
   --primary: var(--espresso);
   --primary-foreground: var(--bone);
   --secondary: var(--sand);
   --secondary-foreground: var(--espresso);
   --muted: var(--sand);
-  /* 7.4:1 on Bone, 6.3:1 on Sand */
+  /* 7.4:1 on Bone, 6.3:1 on Sand, 4.9:1 on Clay */
   --muted-foreground: #5e4a41;
   --accent: var(--nude);
   --accent-foreground: var(--espresso);
   --link: var(--cocoa);
-  --line: var(--clay);
-  --line-soft: color-mix(in srgb, var(--clay) 45%, transparent);
+  --line: #b08d7a;
+  --line-soft: color-mix(in srgb, #b08d7a 40%, transparent);
   --destructive: #9b3b2a;
   --border: var(--line-soft);
-  --input: var(--clay);
+  --input: var(--line);
   --ring: var(--cocoa);
-  --radius: 0.375rem;
+  --radius: 1rem;
 
-  /* Duotone grade shared by every photo: shadows → Espresso, highlights → Sand */
-  --duo-shadow: var(--espresso);
-  --duo-highlight: #e9d6c6;
+  /* Mesh gradient stops (light) */
+  --mesh-1: var(--blush);
+  --mesh-2: var(--sand);
+  --mesh-3: var(--clay);
+  --mesh-4: var(--rose-taupe);
+  /* Cream vertical stripes laid over the mesh */
+  --stripe: rgb(255 250 243 / 0.22);
+
+  --shadow-card: 0 1px 2px rgb(43 33 29 / 0.06), 0 12px 32px -12px rgb(43 33 29 / 0.22);
+  --shadow-float: 0 2px 4px rgb(43 33 29 / 0.06), 0 24px 48px -16px rgb(43 33 29 / 0.3);
 }
 
 .dark {
   --background: var(--espresso);
   --foreground: var(--bone);
   --surface: #382b26;
-  --card: #382b26;
+  --card: #3a2d27;
   --card-foreground: var(--bone);
-  --popover: #382b26;
+  --popover: #3a2d27;
   --popover-foreground: var(--bone);
   --primary: var(--bone);
   --primary-foreground: var(--espresso);
   --secondary: #382b26;
   --secondary-foreground: var(--bone);
   --muted: #382b26;
-  /* 8.2:1 on Espresso */
-  --muted-foreground: #c9b8aa;
+  /* 8.2:1 on Espresso, 6.6:1 on the dark cards */
+  --muted-foreground: #d3c2b4;
   --accent: var(--nude);
   --accent-foreground: var(--espresso);
   --link: var(--nude);
-  --line: var(--clay);
-  --line-soft: color-mix(in srgb, var(--clay) 38%, transparent);
+  --line: #8a6d60;
+  --line-soft: color-mix(in srgb, #b08d7a 32%, transparent);
   --destructive: #e08a76;
   --border: var(--line-soft);
-  --input: var(--clay);
+  --input: var(--line);
   --ring: var(--nude);
+
+  --mesh-1: #5a4036;
+  --mesh-2: #3d2e28;
+  --mesh-3: #6e4f43;
+  --mesh-4: #624440;
+  --stripe: rgb(255 240 228 / 0.06);
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -12px rgb(0 0 0 / 0.5);
+  --shadow-float: 0 2px 4px rgb(0 0 0 / 0.3), 0 24px 48px -16px rgb(0 0 0 / 0.6);
 }
 
 @theme inline {
@@ -99,35 +120,43 @@
   --color-bone: var(--bone);
   --color-sand: var(--sand);
   --color-nude: var(--nude);
+  --color-blush: var(--blush);
   --color-clay: var(--clay);
+  --color-rose-taupe: var(--rose-taupe);
   --color-cocoa: var(--cocoa);
   --color-espresso: var(--espresso);
-  --color-duo-shadow: var(--duo-shadow);
-  --color-duo-highlight: var(--duo-highlight);
+  --color-paper: var(--paper);
+  --color-loader: var(--loader);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-instrument-serif);
-  --font-heading: var(--font-instrument-serif);
+  --font-heading: var(--font-geist-sans);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.25);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.5);
 
-  /* Editorial type scale */
-  --text-display: clamp(3.25rem, 1.6rem + 6.4vw, 8.5rem);
-  --text-display--line-height: 0.92;
-  --text-display--letter-spacing: -0.02em;
-  --text-headline: clamp(2.5rem, 1.6rem + 3.6vw, 5rem);
-  --text-headline--line-height: 1;
-  --text-headline--letter-spacing: -0.015em;
-  --text-title: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
-  --text-title--line-height: 1.08;
-  --text-micro: 0.625rem;
+  --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
+
+  /* Calendly-style type scale: tight, bold sans headlines */
+  --text-display: clamp(2.75rem, 1.4rem + 5.4vw, 6.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.045em;
+  --text-headline: clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.04em;
+  --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.03em;
+  --text-stat: clamp(3rem, 2.2rem + 3vw, 4.75rem);
+  --text-stat--line-height: 1;
+  --text-micro: 0.6875rem;
   --text-micro--letter-spacing: 0.14em;
   --text-label: 0.75rem;
   --text-label--line-height: 1.2;
@@ -138,6 +167,8 @@
 
   --animate-draw: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
   --animate-reveal: reveal linear both;
+  --animate-breathe: breathe 18s ease-in-out infinite alternate;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes draw {
     from {
@@ -158,6 +189,26 @@
       transform: none;
     }
   }
+
+  @keyframes breathe {
+    from {
+      transform: translate3d(-3%, 2%, 0) scale(1) rotate(0deg);
+    }
+    to {
+      transform: translate3d(3%, -3%, 0) scale(1.12) rotate(6deg);
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.6em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 @layer base {
@@ -166,7 +217,7 @@
   }
   html {
     @apply scroll-smooth bg-background font-sans;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
     color-scheme: light;
   }
   html.dark {
@@ -187,9 +238,55 @@
 }
 
 @layer components {
-  /* Inline text links: Cocoa, underlined with a Clay hairline */
+  /* Inline text links: Cocoa, underlined with a hairline */
   .link {
     @apply text-link underline decoration-line decoration-1 underline-offset-4 transition-colors hover:decoration-current;
+  }
+
+  /*
+   * Calendly-style mesh: four nude radial blobs on an oversized layer that
+   * slowly "breathes" (transform only, so it stays on the compositor), with
+   * soft cream vertical stripes on top.
+   */
+  .mesh {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--mesh-2);
+  }
+  .mesh::before,
+  .mesh::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .mesh::before {
+    inset: -30%;
+    background:
+      radial-gradient(38% 42% at 22% 28%, var(--mesh-1) 0%, transparent 70%),
+      radial-gradient(34% 40% at 78% 22%, var(--mesh-3) 0%, transparent 70%),
+      radial-gradient(40% 44% at 70% 78%, var(--mesh-4) 0%, transparent 72%),
+      radial-gradient(36% 40% at 26% 80%, var(--mesh-3) 0%, transparent 70%),
+      linear-gradient(160deg, var(--mesh-1), var(--mesh-2) 45%, var(--mesh-3));
+    will-change: transform;
+  }
+  .mesh::after {
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      var(--stripe) 2.25rem,
+      transparent 4.5rem
+    );
+  }
+
+  /* Work Experience backdrop: clay-rose top → blush → cream bottom */
+  .experience-backdrop {
+    background: linear-gradient(180deg, var(--clay) 0%, var(--blush) 48%, var(--bone) 100%);
+  }
+  .dark .experience-backdrop {
+    background: linear-gradient(180deg, #5c4238 0%, #45332c 48%, var(--espresso) 100%);
   }
 }
 
@@ -199,8 +296,12 @@
   }
 }
 
-/* Scroll reveal: CSS-only, progressive enhancement, skipped for reduced motion */
 @media (prefers-reduced-motion: no-preference) {
+  .mesh-breathe::before {
+    animation: var(--animate-breathe);
+  }
+
+  /* Scroll reveal: CSS-only, progressive enhancement */
   @supports (animation-timeline: view()) {
     .reveal {
       animation: var(--animate-reveal);
@@ -212,4 +313,19 @@
     stroke-dasharray: 1;
     animation: var(--animate-draw);
   }
+}
+
+/*
+ * Loading screen. The shell is server-rendered but hidden; an inline <head>
+ * script sets data-loader="open" before first paint on the first home visit of
+ * a session, so there is no flash of Home and no hydration mismatch.
+ */
+.lab-loader {
+  display: none;
+}
+html[data-loader="open"] {
+  overflow: hidden;
+}
+html[data-loader="open"] .lab-loader {
+  display: flex;
 }

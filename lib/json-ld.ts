@@ -5,7 +5,7 @@ import { siteUrl } from "./site"
 /** schema.org Person for the home page, serialized safely for an inline script. */
 export function personJsonLd() {
   const knowsAbout = Array.from(
-    new Set(profile.expertise.flatMap((group) => group.sets.flatMap((set) => set.items))),
+    new Set(profile.skills.filter((group) => group.id !== "languages").flatMap((g) => g.items)),
   )
 
   const data = {
@@ -15,7 +15,6 @@ export function personJsonLd() {
     alternateName: profile.shortName,
     jobTitle: "Chemical Analyst & Quality Control Specialist",
     url: siteUrl,
-    image: `${siteUrl}${profile.portrait.src}`,
     email: `mailto:${profile.email}`,
     address: {
       "@type": "PostalAddress",

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import { Toaster } from "sonner"
 
+import { BackToTop } from "@/components/site/back-to-top"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
 import { profile } from "@/content"
@@ -69,13 +70,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <BackToTop />
         <Toaster
           position="bottom-center"
           toastOptions={{
             unstyled: true,
             classNames: {
               toast:
-                "flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-mono text-label text-primary-foreground uppercase shadow-sm",
+                "flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-float",
             },
           }}
         />

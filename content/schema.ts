@@ -7,11 +7,6 @@ const seoSchema = z.object({
   description: nonEmpty.max(170),
 })
 
-const imageSchema = z.object({
-  src: z.string().startsWith("/images/"),
-  alt: nonEmpty,
-})
-
 /**
  * A metric slot stays hidden until `value` is confirmed by Galih.
  * Never fill `value` with an estimate.
@@ -20,6 +15,16 @@ const metricSlotSchema = z.object({
   label: nonEmpty,
   value: nonEmpty.nullable(),
 })
+
+const iconSchema = z.enum([
+  "flask",
+  "beaker",
+  "shield",
+  "monitor",
+  "languages",
+  "graduation",
+  "atom",
+])
 
 export const profileSchema = z.object({
   name: nonEmpty,
@@ -30,63 +35,88 @@ export const profileSchema = z.object({
   email: z.email(),
   linkedin: z.url(),
   cvPath: z.string().startsWith("/"),
-  portrait: imageSchema,
   seo: seoSchema,
   hero: z.object({
-    label: nonEmpty,
+    badge: nonEmpty,
     headline: nonEmpty,
+    tagline: nonEmpty,
     statement: nonEmpty,
+    instruments: z.array(nonEmpty).min(3).max(8),
+    floating: z.array(nonEmpty).min(2).max(4),
   }),
-  snapshot: z.array(z.object({ label: nonEmpty, value: nonEmpty })).min(3),
-  about: z.array(nonEmpty).min(1),
+  summary: z.object({
+    title: nonEmpty,
+    paragraphs: z.array(nonEmpty).min(1),
+    /**
+     * Only figures backed by the CV. `count` drives the count-up; leave it out
+     * for non-numeric stats.
+     */
+    stats: z
+      .array(
+        z.object({
+          value: nonEmpty,
+          count: z.number().int().positive().optional(),
+          suffix: z.string().default(""),
+          label: nonEmpty,
+          note: nonEmpty,
+        }),
+      )
+      .length(4),
+  }),
+  skills: z
+    .array(
+      z.object({
+        id: nonEmpty,
+        icon: iconSchema,
+        title: nonEmpty,
+        blurb: nonEmpty,
+        items: z.array(nonEmpty).min(1),
+      }),
+    )
+    .min(3),
   experience: z
     .array(
       z.object({
         id: nonEmpty,
         role: nonEmpty,
         company: nonEmpty,
+        /** Used on the carousel side pills. */
+        abbr: nonEmpty.max(10),
         location: nonEmpty,
         start: nonEmpty,
         end: nonEmpty,
         sector: nonEmpty,
-        summary: nonEmpty,
+        impact: nonEmpty.max(48),
+        quote: nonEmpty,
+        instruments: z.array(nonEmpty).min(1).max(6),
+        /** Fallback mini process when the role has no case study. */
+        flow: z.array(nonEmpty.max(18)).min(3).max(5).optional(),
         highlights: z.array(nonEmpty).min(1),
         caseSlugs: z.array(nonEmpty).default([]),
       }),
     )
     .min(1),
-  expertise: z
-    .array(
-      z.object({
-        title: nonEmpty,
-        blurb: nonEmpty,
-        sets: z
-          .array(
-            z.object({
-              label: nonEmpty.optional(),
-              items: z.array(nonEmpty).min(1),
-            }),
-          )
-          .min(1),
-      }),
-    )
-    .length(3),
   education: z
     .array(
       z.object({
+        id: nonEmpty,
+        tab: nonEmpty,
+        icon: iconSchema,
         school: nonEmpty,
         degree: nonEmpty,
         period: nonEmpty,
         gpa: nonEmpty,
+        blurb: nonEmpty,
         focus: z.array(nonEmpty).min(1),
       }),
     )
     .min(1),
-  certificates: z.array(z.object({ title: nonEmpty, year: nonEmpty })).min(1),
-  beyond: z.object({
+  certificates: z
+    .array(z.object({ title: nonEmpty, year: nonEmpty, category: nonEmpty, body: nonEmpty }))
+    .min(1),
+  activities: z.object({
     intro: nonEmpty,
-    feature: z.object({ title: nonEmpty, year: nonEmpty, body: nonEmpty }),
-    organizations: z
+    items: z
       .array(
         z.object({
           org: nonEmpty,
@@ -119,7 +149,8 @@ export const caseStudySchema = z.object({
     standards: z.array(nonEmpty).min(1),
   }),
   tags: z.array(nonEmpty).min(2).max(5),
-  cover: imageSchema,
+  /** Mono caption shown on the gradient placeholder that stands in for a photo. */
+  coverLabel: nonEmpty.max(40),
   context: z.array(nonEmpty).min(1),
   myRole: z.array(nonEmpty).min(1),
   process: z

@@ -20,10 +20,7 @@ export const methodTransferValidation = {
     standards: ["ICH Q2 — validation", "GMP (CPOB)", "Good Laboratory Practice"],
   },
   tags: ["Method transfer", "Validation", "HPLC", "ICP-OES"],
-  cover: {
-    src: "/images/pipette.jpg",
-    alt: "A gloved analyst pipetting samples into a rack of test tubes",
-  },
+  coverLabel: "FIG. HPLC · ICP-OES · UV-VIS",
   context: [
     "When a product, a method or an instrument changes, the lab has to prove the method still works there — with the same reliability as the original lab. That proof is method transfer and validation.",
     "It covers chromatographic assays on HPLC, elemental analysis on ICP-OES and spectrophotometric methods on UV-Vis, each with its own sources of error.",

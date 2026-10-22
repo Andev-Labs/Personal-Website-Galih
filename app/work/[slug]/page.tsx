@@ -5,8 +5,8 @@ import { notFound } from "next/navigation"
 import type { ReactNode } from "react"
 
 import { Container } from "@/components/site/container"
-import { DuotoneImage } from "@/components/site/duotone-image"
-import { SectionLabel } from "@/components/site/section-label"
+import { Eyebrow } from "@/components/site/eyebrow"
+import { GradientPanel } from "@/components/site/gradient-panel"
 import { ProcessDiagram } from "@/components/work/process-diagram"
 import { caseStudies, getAdjacentCaseStudies, getCaseStudy, profile } from "@/content"
 
@@ -38,9 +38,14 @@ function Block({ index, label, children }: { index: string; label: string; child
       aria-labelledby={id}
       className="reveal grid gap-6 border-t border-line-soft py-12 md:grid-cols-12 md:gap-8"
     >
-      <SectionLabel as="h2" id={id} index={index} className="self-start md:col-span-3 md:pt-1">
+      <h2
+        id={id}
+        className="flex items-center gap-2 self-start font-mono text-label font-medium text-muted-foreground uppercase md:col-span-3 md:pt-1"
+      >
+        <span className="text-foreground">{index}</span>
+        <span aria-hidden="true">·</span>
         {label}
-      </SectionLabel>
+      </h2>
       <div className="md:col-span-9">{children}</div>
     </section>
   )
@@ -78,26 +83,22 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     <article className="pt-8 pb-16 sm:pt-12">
       <Container>
         <Link
-          href="/#work"
-          className="inline-flex items-center gap-2 font-mono text-label text-muted-foreground uppercase hover:text-foreground"
+          href="/#experience"
+          className="inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-sm font-medium transition-colors hover:bg-muted"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
-          All work
+          Back to experience
         </Link>
 
-        <header className="mt-10 grid gap-8 md:grid-cols-12">
-          <SectionLabel index={item.number} className="self-start md:col-span-3 md:pt-4">
-            {item.kicker}
-          </SectionLabel>
-          <div className="md:col-span-9">
-            <h1 className="font-serif text-headline text-balance">{item.title}</h1>
-            <p className="mt-6 max-w-2xl text-lg text-pretty text-muted-foreground sm:text-xl">
-              {item.summary}
-            </p>
-          </div>
+        <header className="mx-auto mt-12 flex max-w-4xl flex-col items-center text-center">
+          <Eyebrow index={item.number}>{item.kicker}</Eyebrow>
+          <h1 className="mt-4 text-headline font-bold text-balance">{item.title}</h1>
+          <p className="mt-6 max-w-2xl text-lg text-pretty text-muted-foreground sm:text-xl">
+            {item.summary}
+          </p>
         </header>
 
-        <dl className="mt-12 grid grid-cols-1 border-y border-line sm:grid-cols-2 lg:grid-cols-5">
+        <dl className="mt-12 grid grid-cols-1 rounded-3xl border border-line-soft bg-card px-6 shadow-card sm:grid-cols-2 lg:grid-cols-5">
           {meta.map((entry) => (
             <div
               key={entry.label}
@@ -111,13 +112,17 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           ))}
         </dl>
 
-        <DuotoneImage
-          src={item.cover.src}
-          alt={item.cover.alt}
-          priority
-          sizes="(min-width: 1216px) 1120px, 100vw"
-          className="mt-12 aspect-[16/9] rounded-sm sm:aspect-[21/9]"
-        />
+        <GradientPanel
+          aria-hidden="true"
+          className="mt-8 flex aspect-[16/9] flex-col justify-between p-6 text-espresso sm:aspect-[21/9] sm:p-10 dark:text-bone"
+        >
+          <span className="self-start rounded-full bg-paper/70 px-3 py-1 font-mono text-micro uppercase dark:bg-espresso/50">
+            {item.coverLabel}
+          </span>
+          <span className="max-w-3xl text-[clamp(1.75rem,1rem+3vw,3.5rem)] leading-none font-bold tracking-[-0.04em] text-balance">
+            {item.meta.company}
+          </span>
+        </GradientPanel>
 
         <div className="mt-8">
           <Block index="A" label="Context">
@@ -140,7 +145,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
                   <p className="font-mono text-micro text-muted-foreground uppercase">
                     Step {String(i + 1).padStart(2, "0")} · {step.label}
                   </p>
-                  <h3 className="mt-2 font-serif text-2xl leading-tight">{step.title}</h3>
+                  <h3 className="mt-2 text-xl font-bold tracking-tight">{step.title}</h3>
                   <p className="mt-2 text-pretty text-muted-foreground">{step.detail}</p>
                 </li>
               ))}
@@ -178,7 +183,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               {item.skills.map((skill) => (
                 <li
                   key={skill}
-                  className="rounded-sm border border-line-soft bg-surface px-3 py-1.5 font-mono text-xs"
+                  className="rounded-full border border-line-soft bg-card px-3.5 py-1.5 text-sm"
                 >
                   {skill}
                 </li>
@@ -191,29 +196,26 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           {profile.confidentiality}
         </p>
 
-        <nav
-          aria-label="More case studies"
-          className="mt-16 grid gap-px border-y border-line sm:grid-cols-2"
-        >
+        <nav aria-label="More case studies" className="mt-16 grid gap-3 sm:grid-cols-2">
           <Link
             href={`/work/${previous.slug}`}
             rel="prev"
-            className="group flex flex-col gap-3 py-8 transition-colors hover:bg-surface sm:pr-8"
+            className="group flex flex-col gap-3 rounded-3xl bg-card p-6 shadow-card transition-transform hover:-translate-y-0.5 motion-reduce:transition-none sm:p-8"
           >
             <span className="inline-flex items-center gap-2 font-mono text-micro text-muted-foreground uppercase">
               <ArrowLeft aria-hidden="true" className="size-4" /> Previous · {previous.number}
             </span>
-            <span className="font-serif text-2xl leading-tight text-balance">{previous.title}</span>
+            <span className="text-xl font-bold tracking-tight text-balance">{previous.title}</span>
           </Link>
           <Link
             href={`/work/${next.slug}`}
             rel="next"
-            className="group flex flex-col gap-3 border-line-soft py-8 text-right transition-colors hover:bg-surface max-sm:border-t sm:border-l sm:pl-8"
+            className="group flex flex-col gap-3 rounded-3xl bg-card p-6 text-right shadow-card transition-transform hover:-translate-y-0.5 motion-reduce:transition-none sm:p-8"
           >
             <span className="inline-flex items-center justify-end gap-2 font-mono text-micro text-muted-foreground uppercase">
               Next · {next.number} <ArrowRight aria-hidden="true" className="size-4" />
             </span>
-            <span className="font-serif text-2xl leading-tight text-balance">{next.title}</span>
+            <span className="text-xl font-bold tracking-tight text-balance">{next.title}</span>
           </Link>
         </nav>
       </Container>

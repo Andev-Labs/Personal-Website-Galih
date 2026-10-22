@@ -20,10 +20,7 @@ export const oosInvestigationCapa = {
     standards: ["GMP (CPOB)", "Good Laboratory Practice", "Data integrity — ALCOA+"],
   },
   tags: ["OOS", "CAPA", "Root cause", "GMP"],
-  cover: {
-    src: "/images/instrument.jpg",
-    alt: "An analyst working along a bench of analytical instruments",
-  },
+  coverLabel: "FIG. OOS → CAPA",
   context: [
     "In a pharmaceutical QC lab, an out-of-specification (OOS) result cannot simply be retested away. GMP requires a documented investigation to decide whether the result reflects a lab error or a real problem with the product.",
     "Getting it wrong either way is costly: release a bad batch, or reject a good one.",

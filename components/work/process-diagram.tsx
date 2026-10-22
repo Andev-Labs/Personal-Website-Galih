@@ -197,7 +197,7 @@ function VerticalDiagram({ id, title, steps }: ProcessDiagramProps) {
  */
 export function ProcessDiagram(props: ProcessDiagramProps) {
   return (
-    <figure className="rounded-sm border border-line-soft bg-surface px-4 py-6 sm:px-8 sm:py-8">
+    <figure className="rounded-3xl bg-card px-4 py-6 shadow-card sm:px-8 sm:py-8">
       <HorizontalDiagram {...props} />
       <VerticalDiagram {...props} />
       <figcaption className="mt-4 font-mono text-micro text-muted-foreground uppercase">
