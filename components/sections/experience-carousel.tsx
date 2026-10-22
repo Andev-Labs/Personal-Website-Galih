@@ -75,7 +75,7 @@ function MiniProcess({ title, steps }: { title: string; steps: string[] }) {
         {steps.map((step, i) => (
           <li key={step} className="flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-card px-2.5 py-1 text-xs font-medium shadow-xs">
-              <span className="font-mono text-[0.625rem] text-muted-foreground tabular-nums">
+              <span className="font-mono text-micro text-muted-foreground tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
               {step}

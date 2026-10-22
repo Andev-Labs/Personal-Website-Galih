@@ -7,7 +7,10 @@ type Particle = {
   vy: number
   /** Target in unit space. */
   target: Point
-  size: number
+  /** Drawn radius, derived from size and depth. */
+  radius: number
+  /** Alpha bucket, derived from depth. */
+  bucket: number
   /** ms before this particle starts converging. */
   delay: number
 }
@@ -34,6 +37,7 @@ const ORBIT_DRAW = 600
 const ELECTRONS_AT = 2000
 
 const ORBIT_ANGLES = [0, Math.PI / 3, (2 * Math.PI) / 3]
+const ALPHA_BUCKETS = 4
 
 const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v))
 const easeOutBack = (t: number) => {
@@ -57,7 +61,7 @@ export function createParticleField({
   if (!ctx) return { setVariant: () => {}, burst: () => {}, destroy: () => {} }
 
   const small = window.innerWidth < 640
-  const count = small ? 170 : 280
+  const count = small ? 150 : 260
   const random = createRandom(42)
 
   let width = 0
@@ -101,10 +105,21 @@ export function createParticleField({
       vx: 0,
       vy: 0,
       target,
-      size: 0.9 + random() * random() * 3.2,
+      radius: 0,
+      bucket: 0,
       delay: random() * 450,
     }
   })
+  const sizes = particles.map(() => 0.9 + random() * random() * 3.2)
+
+  function applyDepth() {
+    particles.forEach((p, i) => {
+      const depth = (p.target.z + 1) / 2
+      p.radius = sizes[i] * (0.7 + depth * 0.5)
+      p.bucket = Math.min(ALPHA_BUCKETS - 1, Math.floor(depth * ALPHA_BUCKETS))
+    })
+  }
+  applyDepth()
 
   function targetPosition(p: Particle) {
     const depth = (p.target.z + 1) / 2
@@ -173,11 +188,15 @@ export function createParticleField({
     ctx!.fillStyle = color
     ctx!.strokeStyle = color
 
-    for (const p of particles) {
-      const depth = (p.target.z + 1) / 2
-      ctx!.globalAlpha = (0.35 + depth * 0.65) * fadeIn * fadeOut
+    // Batched into a few alpha buckets: one path + one fill per bucket.
+    for (let bucket = 0; bucket < ALPHA_BUCKETS; bucket++) {
+      ctx!.globalAlpha = (0.35 + ((bucket + 0.5) / ALPHA_BUCKETS) * 0.65) * fadeIn * fadeOut
       ctx!.beginPath()
-      ctx!.arc(p.x, p.y, p.size * (0.7 + depth * 0.5), 0, Math.PI * 2)
+      for (const p of particles) {
+        if (p.bucket !== bucket) continue
+        ctx!.moveTo(p.x + p.radius, p.y)
+        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+      }
       ctx!.fill()
     }
 
@@ -316,6 +335,7 @@ export function createParticleField({
           p.vy += (random() - 0.5) * 6
         }
       })
+      applyDepth()
       if (reducedMotion) {
         atomness = id === "atom" ? 1 : 0
         settle()

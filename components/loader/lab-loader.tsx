@@ -45,12 +45,6 @@ export function LabLoader() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-    // Everything behind the loader is inert while it's open.
-    const behind = Array.from(document.body.children).filter(
-      (el): el is HTMLElement => el instanceof HTMLElement && el !== root.parentElement,
-    )
-    for (const el of behind) el.inert = true
-
     fieldRef.current = createParticleField({
       canvas,
       anchor,
@@ -62,7 +56,6 @@ export function LabLoader() {
     return () => {
       fieldRef.current?.destroy()
       fieldRef.current = null
-      for (const el of behind) el.inert = false
     }
   }, [])
 
@@ -108,10 +101,8 @@ export function LabLoader() {
       () => {
         fieldRef.current?.destroy()
         fieldRef.current = null
+        // Releases the scroll lock and un-hides the page behind (see globals.css).
         delete document.documentElement.dataset.loader
-        for (const el of Array.from(document.body.children)) {
-          if (el instanceof HTMLElement) el.inert = false
-        }
         window.scrollTo(0, 0)
         document.getElementById("main")?.focus({ preventScroll: true })
       },
@@ -170,14 +161,14 @@ export function LabLoader() {
           <p className="text-xl font-bold tracking-tight sm:text-2xl">
             galih.qc<span className="text-cocoa">*</span>
           </p>
-          <p className="inline-flex items-center gap-2 font-mono text-[0.6875rem] tracking-[0.18em] uppercase sm:text-xs">
+          <p className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] uppercase">
             <span aria-hidden="true" className="size-2 rounded-full bg-espresso" />
             Open to opportunities
           </p>
         </div>
 
         <div className="relative flex min-h-0 flex-1 flex-col items-center px-5 pt-[6vh] text-center sm:pt-[7vh]">
-          <p className="font-mono text-[0.6875rem] tracking-[0.22em] uppercase sm:text-xs">
+          <p className="font-mono text-xs tracking-[0.22em] uppercase">
             ( Chemical analyst · Quality control )
           </p>
           <h2
@@ -187,7 +178,7 @@ export function LabLoader() {
             {HEADLINE.map((word, i) => (
               <span
                 key={word}
-                className="inline-block motion-safe:animate-rise"
+                className="lab-loader-word inline-block"
                 style={{ animationDelay: `${1500 + i * 110}ms` }}
               >
                 {word}

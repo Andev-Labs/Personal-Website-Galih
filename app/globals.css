@@ -156,7 +156,7 @@
   --text-title--letter-spacing: -0.03em;
   --text-stat: clamp(3rem, 2.2rem + 3vw, 4.75rem);
   --text-stat--line-height: 1;
-  --text-micro: 0.6875rem;
+  --text-micro: 0.75rem;
   --text-micro--letter-spacing: 0.14em;
   --text-label: 0.75rem;
   --text-label--line-height: 1.2;
@@ -341,9 +341,30 @@ html[data-loader="open"] {
 html[data-loader="open"] .lab-loader {
   display: flex;
 }
+/*
+ * The page behind stays laid out (no shift on close) but is hidden: not
+ * painted, not focusable and out of the accessibility tree — inert, in CSS.
+ */
+html[data-loader="open"] body > :not(.lab-loader-root) {
+  visibility: hidden;
+}
 @media (prefers-reduced-motion: no-preference) {
   .lab-loader-bar {
     animation: bar-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.1s both;
+  }
+  /* Starts faintly visible rather than at 0, so the headline still paints early (LCP). */
+  .lab-loader-word {
+    animation: word-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+@keyframes word-in {
+  from {
+    opacity: 0.06;
+    transform: translateY(0.45em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 @keyframes bar-in {
