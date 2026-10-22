@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react"
 
 import { GradientPanel } from "@/components/site/gradient-panel"
+import type { Backdrop } from "@/content"
 import { cn } from "@/lib/utils"
 
 export type ExperienceSlide = {
@@ -21,7 +22,7 @@ export type ExperienceSlide = {
   flowTitle: string
   highlights: string[]
   cases: { slug: string; title: string }[]
-  backdrop: Record<"light" | "dark", { top: string; mid: string; mesh: string }>
+  backdrop: Backdrop
 }
 
 const SWIPE_THRESHOLD = 48

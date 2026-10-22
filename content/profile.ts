@@ -254,6 +254,11 @@ export const profileInput = {
         "Material & energy balances",
         "Environmental & safety engineering",
       ],
+      // Rose-taupe
+      backdrop: {
+        light: { top: "#c9a19f", mid: "#ead4d1", mesh: "#c79e9b" },
+        dark: { top: "#563d3f", mid: "#40302f", mesh: "#674a4c" },
+      },
     },
     {
       id: "ipb",
@@ -269,6 +274,11 @@ export const profileInput = {
         "Conventional & instrumental analysis",
         "ISO 9001, ISO 14001, ISO/IEC 17025",
       ],
+      // Sand-clay
+      backdrop: {
+        light: { top: "#cfa888", mid: "#efdccb", mesh: "#cca586" },
+        dark: { top: "#5b4434", mid: "#443428", mesh: "#6c5240" },
+      },
     },
   ],
   certificates: [

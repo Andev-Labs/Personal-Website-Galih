@@ -293,38 +293,39 @@
   }
 
   /*
-   * Work Experience backdrop: role color top → mid → page color bottom.
-   * The active role sets --xp-*-light/dark inline (see content/profile.ts);
-   * the registered --xp-* colors below interpolate, so the gradient and the
-   * mesh accent blob fade between roles. Paint only, no layout.
+   * Tinted section (Work Experience, Education): active item color top → mid
+   * → page color bottom. The active item sets --backdrop-*-light/dark inline
+   * (see content/profile.ts and lib/backdrop.ts); the registered --xp-*
+   * colors below interpolate, so the gradient and the mesh accent blob fade
+   * between items. Paint only, no layout.
    */
-  .experience-backdrop {
-    --xp-top: var(--xp-top-light, var(--clay));
-    --xp-mid: var(--xp-mid-light, var(--blush));
-    --xp-mesh: var(--xp-mesh-light, var(--clay));
+  .tinted-backdrop {
+    --xp-top: var(--backdrop-top-light, var(--clay));
+    --xp-mid: var(--backdrop-mid-light, var(--blush));
+    --xp-mesh: var(--backdrop-mesh-light, var(--clay));
     --xp-end: var(--bone);
-    /* Card mesh panel and side pills follow the active role */
+    /* Mesh panels (and side pills) inside follow the active item */
     --mesh-3: var(--xp-mesh);
     background: linear-gradient(180deg, var(--xp-top) 0%, var(--xp-mid) 48%, var(--xp-end) 100%);
     transition-property: --xp-top, --xp-mid, --xp-mesh;
     transition-duration: 600ms;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .dark .experience-backdrop {
-    --xp-top: var(--xp-top-dark, #5c4238);
-    --xp-mid: var(--xp-mid-dark, #45332c);
-    --xp-mesh: var(--xp-mesh-dark, #6e4f43);
+  .dark .tinted-backdrop {
+    --xp-top: var(--backdrop-top-dark, #5c4238);
+    --xp-mid: var(--backdrop-mid-dark, #45332c);
+    --xp-mesh: var(--backdrop-mesh-dark, #6e4f43);
     --xp-end: var(--espresso);
   }
   @media (prefers-reduced-motion: reduce) {
-    .experience-backdrop {
+    .tinted-backdrop {
       transition-duration: 120ms;
       transition-timing-function: linear;
     }
   }
 }
 
-/* Animatable Work Experience colors (gradients themselves can't transition) */
+/* Animatable tinted-backdrop colors (gradients themselves can't transition) */
 @property --xp-top {
   syntax: "<color>";
   inherits: true;

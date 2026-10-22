@@ -1,6 +1,6 @@
 "use client"
 
-import { useId, useRef, useState, type KeyboardEvent } from "react"
+import { useId, useRef, type KeyboardEvent } from "react"
 
 import { GradientPanel } from "@/components/site/gradient-panel"
 import { PhotoPlaceholder } from "@/components/site/photo-placeholder"
@@ -11,15 +11,22 @@ import { cn } from "@/lib/utils"
 type EducationItem = Profile["education"][number]
 
 /** Calendly hero-style round icon tabs over a gradient panel with a white card. */
-export function EducationTabs({ items }: { items: EducationItem[] }) {
-  const [active, setActive] = useState(0)
+export function EducationTabs({
+  items,
+  active,
+  onActiveChange,
+}: {
+  items: EducationItem[]
+  active: number
+  onActiveChange: (index: number) => void
+}) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const baseId = useId()
   const item = items[active]
 
   function select(index: number) {
     const next = (index + items.length) % items.length
-    setActive(next)
+    onActiveChange(next)
     tabRefs.current[next]?.focus()
   }
 
@@ -59,7 +66,7 @@ export function EducationTabs({ items }: { items: EducationItem[] }) {
               aria-selected={selected}
               aria-controls={`${baseId}-panel`}
               tabIndex={selected ? 0 : -1}
-              onClick={() => setActive(i)}
+              onClick={() => onActiveChange(i)}
               className="group flex flex-col items-center gap-2 rounded-2xl p-1"
             >
               <span
@@ -75,7 +82,7 @@ export function EducationTabs({ items }: { items: EducationItem[] }) {
               <span
                 className={cn(
                   "text-sm font-medium",
-                  selected ? "text-foreground" : "text-muted-foreground",
+                  selected ? "text-foreground" : "text-espresso/80 dark:text-bone/80",
                 )}
               >
                 {entry.tab}
