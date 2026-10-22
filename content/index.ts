@@ -47,4 +47,4 @@ export function getAdjacentCaseStudies(slug: string) {
   }
 }
 
-export type { CaseStudy, Profile } from "./schema"
+export type { Backdrop, CaseStudy, Profile } from "./schema"

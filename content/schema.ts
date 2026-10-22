@@ -16,6 +16,21 @@ const metricSlotSchema = z.object({
   value: nonEmpty.nullable(),
 })
 
+const hexColor = z.string().regex(/^#[0-9a-f]{6}$/i, "Use a 6-digit hex color")
+
+/** Tinted section backdrop for one theme: section gradient + mesh accent blob. */
+const backdropThemeSchema = z.object({
+  /** Top of the section gradient. Section header text sits on it, keep 4.5:1. */
+  top: hexColor,
+  /** Middle of the section gradient. */
+  mid: hexColor,
+  /** Accent blob of the card's mesh panel and side pills. */
+  mesh: hexColor,
+})
+
+/** Background colors while an item (role, degree) is active. */
+const backdropSchema = z.object({ light: backdropThemeSchema, dark: backdropThemeSchema })
+
 const iconSchema = z.enum([
   "flask",
   "beaker",
@@ -92,6 +107,8 @@ export const profileSchema = z.object({
         flow: z.array(nonEmpty.max(18)).min(3).max(5).optional(),
         highlights: z.array(nonEmpty).min(1),
         caseSlugs: z.array(nonEmpty).default([]),
+        /** Section background while this role is active. */
+        backdrop: backdropSchema,
       }),
     )
     .min(1),
@@ -107,6 +124,8 @@ export const profileSchema = z.object({
         gpa: nonEmpty,
         blurb: nonEmpty,
         focus: z.array(nonEmpty).min(1),
+        /** Gradient panel colors while this degree is active. */
+        backdrop: backdropSchema,
       }),
     )
     .min(1),
@@ -167,6 +186,7 @@ export const caseStudySchema = z.object({
   skills: z.array(nonEmpty).min(3),
 })
 
+export type Backdrop = z.infer<typeof backdropSchema>
 export type Profile = z.infer<typeof profileSchema>
 export type CaseStudy = z.infer<typeof caseStudySchema>
 export type CaseStudyInput = z.input<typeof caseStudySchema>

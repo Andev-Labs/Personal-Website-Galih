@@ -15,7 +15,7 @@ export function Activities() {
           title="Beyond the lab."
           intro={activities.intro}
         />
-        <ul className="mt-12 grid gap-4 md:grid-cols-3">
+        <ul className="reveal-stagger mt-12 grid gap-4 md:grid-cols-3">
           {activities.items.map((item) => (
             <li
               key={item.org}

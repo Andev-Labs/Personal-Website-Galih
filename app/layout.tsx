@@ -4,6 +4,7 @@ import { Toaster } from "sonner"
 
 import { BackToTop } from "@/components/site/back-to-top"
 import { LabLoader } from "@/components/loader/lab-loader"
+import { ScrollReveal } from "@/components/site/scroll-reveal"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
 import { profile } from "@/content"
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <BackToTop />
+        <ScrollReveal />
         <Toaster
           position="bottom-center"
           toastOptions={{

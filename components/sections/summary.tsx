@@ -23,7 +23,7 @@ export function Summary() {
         </div>
 
         <GradientPanel className="mt-12 p-3 sm:p-5">
-          <dl className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <dl className="reveal-stagger grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {summary.stats.map((stat) => (
               <div
                 key={stat.label}
